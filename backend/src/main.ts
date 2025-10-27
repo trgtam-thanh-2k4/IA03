@@ -31,6 +31,7 @@ async function bootstrap(): Promise<void> {
         return callback(null, true);
       }
       
+      console.warn(`❌ Blocked by CORS: ${origin}`);
       return callback(new Error('Not allowed by CORS'), false);
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -40,11 +41,8 @@ async function bootstrap(): Promise<void> {
       'Accept',
       'Origin',
       'X-Requested-With',
-      'Access-Control-Request-Method',
-      'Access-Control-Request-Headers'
+      'Access-Control-Allow-Origin',
     ],
-    credentials: true,
-    preflightContinue: false,
     optionsSuccessStatus: 204,
   });
   
